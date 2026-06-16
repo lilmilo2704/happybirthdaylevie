@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prize Unlocked</title>
+    <link type="text/css" rel="stylesheet" href="./file/default.css">
+    <script type="text/javascript" src="./file/site.js" charset="utf-8"></script>
+</head>
+<body class="page-prize">
+    <div class="pixel-sky" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <main class="prize-stage">
+        <audio autoplay loop preload="auto" id="myAudio">
+            <source src="aud.mp3" type="audio/mp3">
+        </audio>
+
+        <section class="pixel-window win-window">
+            <p class="kicker">Congratulations!</p>
+            <h1>You Win!</h1>
+            <p class="survey-copy">Chúc mừng, bạn đã trúng số độc đắt. Bạn chọn bạn trai rất chuẩn nên sẽ nhận được phần thưởng sau đây</p>
+
+            <div class="reward-grid">
+                <article class="pixel-card cash-card">
+                    <span class="card-label">Cash Prize</span>
+                    <strong>80k VND / 1 ly boba</strong>
+                    <p>Immediately redeemable from your boyfriend with one cute smile.</p>
+                </article>
+
+                <article class="pixel-card ticket-card">
+                    <span class="card-label">Golden Ticket</span>
+                    <strong>Code: I-L0vE-Li1Mi10</strong>
+                    <p>This ticket grants one special date, all fees included, keep it and show to your boyfriend to redeem the prize.</p>
+                </article>
+            </div>
+
+            <article class="certificate">
+                <div class="certificate-border">
+                    <p class="cert-small">Certificate of Legendary Achievement</p>
+                    <h2>Best Girlfriend in the World</h2>
+                    <p>This certifies that the holder (Levie) is cute, precious, gorgeous, and dangerously good at making my heart melt.</p>
+                    <div class="cert-footer">
+                        <span>Issued by: Lilmilo</span>
+                        <span>Date: 19/06/2026</span>
+                    </div>
+                </div>
+            </article>
+
+            <div class="prize-actions">
+                <a class="pixel-button restart-button" href="index.html">Play again</a>
+                <button class="pixel-button download-button" id="download-rewards" type="button">Download rewards</button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        (function() {
+            var downloadButton = document.getElementById("download-rewards");
+            var rewardFiles = [
+                { href: "ticket.pdf", name: "ticket.pdf" },
+                { href: "certificate.png", name: "certificate.png" }
+            ];
+
+            function downloadRewards() {
+                rewardFiles.forEach(function(file, index) {
+                    window.setTimeout(function() {
+                        var link = document.createElement("a");
+                        link.href = file.href;
+                        link.download = file.name;
+                        document.body.appendChild(link);
+                        link.click();
+                        link.remove();
+                    }, index * 180);
+                });
+            }
+
+            downloadButton.addEventListener("click", downloadRewards);
+        })();
+    </script>
+</body>
+</html>
