@@ -1,8 +1,18 @@
 (function() {
-  var STORAGE_TIME = "giftAudioTime";
+  var STORAGE_PREFIX = "giftAudioTime:";
 
   function getAudio() {
     return document.getElementById("myAudio");
+  }
+
+  function getAudioKey(audio) {
+    var source = audio.currentSrc || "";
+    var sourceNode = audio.querySelector("source");
+    if (!source && sourceNode) {
+      source = sourceNode.getAttribute("src") || "";
+    }
+
+    return STORAGE_PREFIX + source.split("/").pop();
   }
 
   function saveAudioTime() {
@@ -12,13 +22,13 @@
     }
 
     try {
-      localStorage.setItem(STORAGE_TIME, String(audio.currentTime));
+      localStorage.setItem(getAudioKey(audio), String(audio.currentTime));
     } catch (error) {}
   }
 
   function restoreAudioTime(audio) {
     try {
-      var savedTime = parseFloat(localStorage.getItem(STORAGE_TIME));
+      var savedTime = parseFloat(localStorage.getItem(getAudioKey(audio)));
       if (!Number.isNaN(savedTime) && savedTime > 0) {
         audio.currentTime = savedTime;
       }
