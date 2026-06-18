@@ -1,5 +1,6 @@
 (function() {
   var STORAGE_PREFIX = "giftAudioTime:";
+  var DEFAULT_VOLUME = 0.28;
 
   function getAudio() {
     return document.getElementById("myAudio");
@@ -42,6 +43,7 @@
     }
 
     audio.loop = true;
+    audio.volume = DEFAULT_VOLUME;
     restoreAudioTime(audio);
 
     var playPromise = audio.play();
@@ -57,6 +59,7 @@
     }
 
     audio.loop = true;
+    audio.volume = DEFAULT_VOLUME;
     restoreAudioTime(audio);
     playSiteAudio();
 

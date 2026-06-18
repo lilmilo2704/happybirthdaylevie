@@ -59,6 +59,15 @@ p {
   margin-top: 0;
 }
 
+h1,
+h2,
+p,
+strong,
+span {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 #main,
 .question-stage,
 .prize-stage {
@@ -126,7 +135,8 @@ p {
 }
 
 .pixel-hero {
-  width: min(920px, 100%);
+  width: calc(100vw - 52px);
+  max-width: 920px;
   margin: 0 auto 14px;
   text-align: center;
   text-shadow: 4px 4px 0 var(--border), 0 10px 24px var(--shadow);
@@ -169,7 +179,8 @@ p {
 
 .arcade-frame,
 .pixel-window {
-  width: min(1160px, 100%);
+  width: calc(100vw - 52px);
+  max-width: 1160px;
   margin: 0 auto;
   border: 4px solid var(--border);
   border-radius: 8px;
@@ -182,7 +193,7 @@ p {
 }
 
 .arcade-frame {
-  overflow-x: auto;
+  overflow: visible;
   transition: transform 160ms steps(2), box-shadow 160ms steps(2);
 }
 
@@ -212,11 +223,21 @@ p {
   position: relative;
   width: 1100px;
   height: 680px;
-  margin: 0 auto;
+  margin: 0;
   overflow: hidden;
+  transform: scale(var(--playfield-scale, 1));
+  transform-origin: top left;
   background:
     linear-gradient(rgba(8, 8, 32, 0.18), rgba(255, 93, 168, 0.1)),
     url("../img.png") center / cover no-repeat;
+}
+
+.playfield-viewport {
+  --playfield-scale: min(1, calc((100vw - 72px) / 1100));
+  width: calc(1100px * var(--playfield-scale));
+  height: calc(680px * var(--playfield-scale));
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 #wrap::after {
@@ -458,7 +479,9 @@ p {
 
 .pixel-window {
   position: relative;
-  width: min(920px, 100%);
+  width: calc(100vw - 52px);
+  max-width: 920px;
+  min-width: 0;
   padding: clamp(24px, 5vw, 52px);
   text-align: center;
   transition: transform 160ms steps(2), box-shadow 160ms steps(2);
@@ -504,6 +527,7 @@ p {
 .choice-zone {
   position: relative;
   width: min(680px, 100%);
+  min-width: 0;
   min-height: 260px;
   margin: 32px auto 22px;
   border: 4px solid var(--border);
@@ -558,6 +582,7 @@ p {
 
 .pixel-card,
 .certificate {
+  min-width: 0;
   border: 4px solid var(--border);
   border-radius: 8px;
   background: #fff9dd;
@@ -593,6 +618,7 @@ p {
   color: var(--border);
   font-size: clamp(28px, 5vw, 44px);
   line-height: 1;
+  overflow-wrap: anywhere;
 }
 
 .pixel-card p,
@@ -720,6 +746,10 @@ p {
 }
 
 @media (max-width: 760px) {
+  body {
+    background-attachment: scroll;
+  }
+
   #main,
   .question-stage,
   .prize-stage {
@@ -733,21 +763,22 @@ p {
 
   .arcade-frame {
     width: 100%;
+    box-shadow:
+      0 0 0 3px var(--yellow),
+      0 0 0 6px var(--border),
+      8px 8px 0 rgba(0, 0, 0, 0.3);
   }
 
-  #wrap {
-    margin-left: 0;
-  }
-
-  .meme-panel {
-    left: 24px;
-    right: auto;
-    top: 360px;
-    width: 430px;
+  .playfield-viewport {
+    --playfield-scale: min(1, calc((100vw - 72px) / 1100));
   }
 
   .pixel-window {
     padding: 22px 14px;
+    box-shadow:
+      0 0 0 3px var(--yellow),
+      0 0 0 6px var(--border),
+      8px 8px 0 rgba(0, 0, 0, 0.3);
   }
 
   .choice-zone {
@@ -787,16 +818,22 @@ p {
 
   .pixel-hero h1,
   .pixel-window h1 {
-    font-size: clamp(30px, 12vw, 46px);
+    font-size: clamp(24px, 7vw, 30px);
   }
 
   .intro-note,
   .survey-copy {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .pixel-window {
     padding: 18px 12px;
+    width: calc(100vw - 84px);
+    max-width: calc(100vw - 84px);
+  }
+
+  .playfield-viewport {
+    --playfield-scale: min(1, calc((100vw - 84px) / 1100));
   }
 
   .pixel-button {
@@ -804,6 +841,36 @@ p {
     min-height: 48px;
     padding: 8px 12px;
     font-size: 15px;
+  }
+
+  .pixel-card strong {
+    font-size: clamp(22px, 7vw, 27px);
+  }
+
+  .certificate h2 {
+    font-size: clamp(23px, 7vw, 28px);
+  }
+
+  .certificate-border {
+    padding: 16px 10px;
+  }
+
+  .pixel-card {
+    padding: 16px;
+  }
+
+  .pixel-card p,
+  .certificate p {
+    font-size: 14px;
+  }
+
+  .card-label,
+  .cert-small {
+    font-size: 12px;
+  }
+
+  .cert-footer {
+    font-size: 13px;
   }
 
   .choice-zone {
